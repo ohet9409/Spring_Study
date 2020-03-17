@@ -63,7 +63,7 @@ public class BoardMapperTests {
 		log.info("DELETE COUNT: " + mapper.delete(23822582L));
 	}
 	
-	@Test
+	//@Test
 	public void testUpdate() {
 		
 		BoardVO board = new BoardVO();

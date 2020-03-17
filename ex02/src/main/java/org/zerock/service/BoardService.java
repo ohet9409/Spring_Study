@@ -6,7 +6,7 @@ import org.zerock.domain.BoardVO;
 
 public interface BoardService {
 	
-	public void resister(BoardVO board);
+	public void register(BoardVO board);
 	
 	public BoardVO get(Long bno);
 	

@@ -28,7 +28,7 @@ public class BoardServiceTests {
 		assertNotNull(service);
 	}
 	
-	@Test
+	//@Test
 	public void testRegister() {
 		
 		BoardVO board = new BoardVO();
@@ -36,8 +36,38 @@ public class BoardServiceTests {
 		board.setContent("새로 작성하는 내용 200317");
 		board.setWriter("newbie");
 		
-		service.resister(board);
+		service.register(board);
 		
 		log.info("생성된 게시물의 번호: " + board.getBno());
+	}
+	
+	//@Test
+	public void testGetList() {
+		service.getList().forEach(board -> log.info(board));
+	}
+	
+	//@Test
+	public void testGet() {
+		log.info(service.get(23822606L));
+	}
+	
+	@Test
+	public void testDelete() {
+		
+		// 게시물 번호의 존재 여부를 확인하고 테스트할 것
+		log.info("REMOVE RESULT: " + service.remove(23822606L));
+	}
+	
+	//@Test
+	public void testUpdate() {
+		
+		BoardVO board = new BoardVO();
+		board = service.get(23822606L);
+		if (board == null) {
+			return;
+		}
+		
+		board.setTitle("제목 수정합니다 200317");
+		log.info("MODIFY RESULT: " + service.modify(board));
 	}
 }
