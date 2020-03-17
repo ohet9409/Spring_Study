@@ -6,12 +6,15 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
+// @component 어노테이션 및 storetype(@service, @repository, @controller .. ) 어노테이션이 부여된 class들을 자동으로 scan하여 bean으로 등록해주는 역할
+@ComponentScan(basePackages = {"org.zerock.service"})
 @MapperScan(basePackages = {"org.zerock.mapper"})
 public class RootConfig {
 	
