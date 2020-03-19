@@ -51,7 +51,7 @@ public class BoardServiceTests {
 		log.info(service.get(23822606L));
 	}
 	
-	@Test
+	//@Test
 	public void testDelete() {
 		
 		// 게시물 번호의 존재 여부를 확인하고 테스트할 것
