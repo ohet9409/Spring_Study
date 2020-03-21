@@ -30,6 +30,12 @@ public class BoardController {
 		model.addAttribute("list", service.getList());
 	}
 	
+	// 입력페이지를 볼 수 있도록 
+	@GetMapping("/register")
+	public void register() {
+		log.info("등록화면 이동");
+	}
+	
 	// RedirectAttributes: 등록작업이 끝난 후 다시 목록 화면으로 이동하기 위함
 	@PostMapping("/register")
 	public String register(BoardVO board, RedirectAttributes rttr) {

@@ -17,41 +17,41 @@ import lombok.extern.log4j.Log4j;
 @Service
 // 모든 파라미터를 이용하는 생성자를 만들기위해 사용
 @AllArgsConstructor
-public class BoardServiceImpl implements BoardService{
+public class BoardServiceImpl implements BoardService {
 
-	//@Setter(onMethod_= @Autowired)
+	@Setter(onMethod_ = @Autowired)
 	private BoardMapper mapper;
-	
+
 	@Override
-	public void resister(BoardVO board) {
-		
+	public void register(BoardVO board) {
 		log.info("register......." + board);
-		
+
 		mapper.insertSelectKey(board);
+	
 	}
 
 	@Override
 	public BoardVO get(Long bno) {
-		// TODO Auto-generated method stub
-		return null;
+		log.info("get....." + bno);
+		return mapper.read(bno);
 	}
 
 	@Override
 	public boolean modify(BoardVO board) {
-		// TODO Auto-generated method stub
-		return false;
+		log.info("modify....." + board);
+		return mapper.update(board) == 1;
 	}
 
 	@Override
 	public boolean remove(Long bno) {
-		// TODO Auto-generated method stub
-		return false;
+		log.info("remove....." + bno);
+		return mapper.delete(bno) == 1;
 	}
 
 	@Override
 	public List<BoardVO> getList() {
-		// TODO Auto-generated method stub
-		return null;
+		log.info("getList.......");
+		return mapper.getList();
 	}
 
 }

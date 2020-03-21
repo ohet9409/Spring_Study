@@ -28,6 +28,7 @@ public class BoardServiceImpl implements BoardService {
 
 		mapper.insertSelectKey(board);
 	
+		log.info("등록 기능: " + board);
 	}
 
 	@Override
