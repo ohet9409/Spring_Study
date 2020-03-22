@@ -13,7 +13,7 @@
 	</appender>
 
 	<!-- Application Loggers -->
-	<logger name="org.zerock.controller">
+	<logger name="com.spring.app">
 		<level value="info" />
 	</logger>
 
@@ -34,18 +34,23 @@
 		<level value="info" />
 	</logger>
 	<logger name="jdbc.audit">
-		<level value="warn" />
+		<level value="warn"/>
 	</logger>
 	<logger name="jdbc.resultset">
-		<level value="warn" />
+		<level value="warn"/>
 	</logger>
 	<logger name="jdbc.connection">
-		<level value="warn" />
+		<level value="warn"/>
 	</logger>
 	<!-- Root Logger -->
 	<root>
 		<priority value="info" />
 		<appender-ref ref="console" />
 	</root>
+	<!-- log 줄이기 -->
+	<!-- <root>
+		<priority value="info" />
+		<appender-ref ref="console" />
+	</root> -->
 
 </log4j:configuration>
