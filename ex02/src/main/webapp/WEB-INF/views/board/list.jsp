@@ -35,7 +35,8 @@
 					<c:forEach items="${list}" var="board">
 						<tr>
 							<td><c:out value="${board.bno }"/> </td>
-							<td><a href="/board/get?bno=<c:out value='${board.bno}'/>" target="_blank"><c:out value="${board.title }"/> </a> </td>
+							<%-- <td><a href="/board/get?bno=<c:out value='${board.bno}'/>" target="_blank"><c:out value="${board.title }"/> </a> </td> --%>
+							<td><a class="move" href='<c:out value="${board.bno }"/>'><c:out value="${board.title }"/> </a></td>
 							<td><c:out value="${board.writer }"/> </td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd" value="${board.regdate }"/> </td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd" value="${board.updateDate }"/> </td>
@@ -64,6 +65,7 @@
 				<input type="hidden" name ="pageNum" value = "${pageMaker.cri.pageNum }">
 				<input type="hidden" name ="amount" value = "${pageMaker.cri.amount }">
 			</form>
+			
 			<!-- Modal 추가 -->
 			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
@@ -136,6 +138,16 @@
 			
 			actionForm.find("input[name = 'pageNum']").val($(this).attr("href"));
 			
+			actionForm.submit();
+		});
+		
+		$(".move").on("click", function(e) {
+			
+			e.preventDefault();
+			// 현재 url에 bno값을 추가해서 전달하기 위함
+			actionForm.append("<input type='hidden' name='bno' value='" + $(this).attr("href")+"'>");
+			// /board/list을 변경
+			actionForm.attr("action", "/board/get");
 			actionForm.submit();
 		});
 	});
