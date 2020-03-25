@@ -20,6 +20,8 @@
 				<!-- 추가 -->
 				<input type="hidden" name="pageNum" value="<c:out value='${cri.pageNum }'/>">
 				<input type="hidden" name="amount" value="<c:out value='${cri.amount }'/>">
+				<input type="hidden" name="keyword" value='<c:out value="${cri.keyword }"/>'>
+				<input type="hidden" name="type" value='<c:out value="${cri.type }"/>'>
 				
 				<div class="form-group">
 					<label>Bno</label><input class="form-control" name="bno" value='<c:out value="${board.bno }"/>' readonly="readonly">
@@ -79,6 +81,8 @@ $(document).ready(function() {
 			// <form> 태그에서 필요한 부분만 잠시 복사
 			var pageNumTag = $("input[name='pageNum']").clone();
 			var amountTag = $("input[name='amount']").clone();
+			var keywordTag = $("input[name='keyword']").clone();
+			var typeTag = $("input[name='type']").clone();
 			
 			// <form>태그 내의 모든 내용 지움
 			formObj.empty();
@@ -86,6 +90,8 @@ $(document).ready(function() {
 			// 필요한 태그들만 추가해서 '/board/list'를 호출
 			formObj.append(pageNumTag);
 			formObj.append(amountTag);
+			formObj.append(keywordTag);
+			formObj.append(typeTag);
 			
 		}
 		formObj.submit();
