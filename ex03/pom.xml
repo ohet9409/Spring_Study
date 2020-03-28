@@ -15,6 +15,61 @@
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
 	<dependencies>
+	<!-- test관련 -->
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${org.springframework-version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- db 연결 관련 -->
+		<!-- sql을 변환해 ?가 어떤 값으로 처리되었는지 확인하는 기능: sql로그를 제대로 보기 위해 사용 -->
+		<!-- https://mvnrepository.com/artifact/org.bgee.log4jdbc-log4j2/log4jdbc-log4j2-jdbc4 -->
+		<dependency>
+			<groupId>org.bgee.log4jdbc-log4j2</groupId>
+			<artifactId>log4jdbc-log4j2-jdbc4</artifactId>
+			<version>1.16</version>
+		</dependency>
+		<!-- mybatis 관련 -->
+		<!-- 스프링에서 데이터베이스 처리와 트랜잭션 처리 mybatis 연결시 없으면 에러 발생 -->
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-tx -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.4.6</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.zaxxer/HikariCP -->
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+			<version>2.7.4</version>
+		</dependency>
+		<!-- 파일업로드 처리 (Servlet 2.5기준) -->
+		<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3.3</version>
+		</dependency>
 		<!-- JSON/XML로 변환할 때 사용 -->
 		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
 		<dependency>
@@ -148,12 +203,12 @@
 		</dependency>
 
 		<!-- Servlet -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 			<version>2.5</version>
 			<scope>provided</scope>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>jsp-api</artifactId>
