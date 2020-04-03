@@ -55,6 +55,67 @@
 </div>
 <!-- /.row -->
 <%@include file="../includes/footer.jsp"%>
+
+<script type="text/javascript" src="/resources/js/reply.js">
+<!--
+
+//-->
+</script>
+<script type="text/javascript">
+console.log("============");
+console.log("JS TEST");
+
+var bnoValue = '<c:out value="${board.bno}"/>';
+
+// for replyService add test
+/* replyService.add(
+		{reply: "JS TEST", replyer:"tester", bno:bnoValue}
+		,
+		function(result) {
+			alert("RESULT: " + result);
+		}
+		); */
+		
+// for replyService getList test
+/* replyService.getList({bno: bnoValue, page:1}, function(list) {
+	
+	for (var i = 0,  len = list.length||0; i < len; i++) {
+		console.log(list[i]);
+	}
+	
+}); */
+
+//for replyService remove test
+/*
+replyService.remove(23, function(count) {
+	console.log(count);
+	
+	if (count === "success") {
+		alert("REMOVED");
+	}
+}, function(err) {
+	alert("ERROR...");
+});
+*/
+
+//for replyService update test
+/*
+replyService.update({
+	rno : 22,
+	bno : bnoValue,
+	reply : "Modified Reply..."
+}, function(result1) {
+	alert("수정완료..");
+	
+});
+*/
+
+//for replyService update test
+
+replyService.get(22, function (data) {
+	console.log(data);
+});
+</script>
 <script type="text/javascript">
 	$(document).ready(function() {
 
