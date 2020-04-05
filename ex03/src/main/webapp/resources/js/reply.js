@@ -109,7 +109,7 @@ var replyService = (function() {
 	
 	function displayTime(timeValue) {
 		var today = new Date();
-		alert('aaa');
+		//alert("b");
 		var gap = today.getTime() - timeValue;
 		
 		var dateObj = new Date(timeValue);
