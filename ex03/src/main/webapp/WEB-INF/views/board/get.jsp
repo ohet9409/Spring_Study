@@ -87,6 +87,7 @@
 		 		<!-- end ul -->
 		 	</div>
 		 	<!-- /.panel .chat-panel -->
+		 	<div class="panel-footer"></div>
 		</div>
 	</div>
 	<!-- /.end row -->
@@ -129,7 +130,6 @@
 </div>
 <!-- /.modal -->
 <!-- 자바 스크립트 파일을 수정할 때 바로 적용시키기 위해 ?ver=<%=System.currentTimeMillis()%> 추가-->
-<script type="text/javascript" src="/resources/js/reply.js?ver=<%=System.currentTimeMillis()%>"></script>
 <script type="text/javascript">
 
 console.log("============");
@@ -143,9 +143,19 @@ $(document).ready(function() {
 	
 	function showList(page) {
 		
-		replyService.getList({bno:bnoValue, page: page|| 1}, function(list) {
+		console.log("show list " + page);
+		replyService.getList({bno:bnoValue, page: page|| 1}, function(replyCnt, list) {
 			
+			console.log("replyCnt: " + replyCnt);
+			console.log("list: " + list);
+			
+			if (page == -1) {
+				pageNum = Math.ceil(replyCnt/10.0);
+				showList(pageNum);
+				return;
+			}
 			var str ="";
+			
 			if (list == null || list.length == 0) {
 				replyUL.html("");
 				
@@ -159,6 +169,8 @@ $(document).ready(function() {
 			}
 			
 			replyUL.html(str);
+			
+			showReplyPage(replyCnt);
 			
 		}); //end function
 		
@@ -198,7 +210,9 @@ $(document).ready(function() {
 			modal.modal("hide");
 			
 			// 새로운 댓글도 가져오는 기능
-			showList(1);
+			//showList(1);
+			// 우선 전체 댓글의 숫자를 파악
+			showList(-1);
 		});
 	});
 	
@@ -232,7 +246,7 @@ $(document).ready(function() {
 			
 			alert(result);
 			modal.modal("hide");
-			showList(1);
+			showList(pageNum);
 		});
 	});
 	
@@ -245,9 +259,67 @@ $(document).ready(function() {
 			
 			alert(result);
 			modal.modal("hide");
-			showList(1);
+			showList(pageNum);
 		});
 	});
+	
+	// 댓글 페이징 처리
+	var pageNum=1;
+	var replyPageFooter = $(".panel-footer");
+	 
+	 function showReplyPage(replyCnt) {
+		
+		 var endNum = Math.ceil(pageNum / 10.0) * 10;
+		 var startNum = endNum - 9;
+		 
+		 var prev = startNum != 1;
+		 var next = false;
+		 
+		 if (endNum * 10 >= replyCnt) {
+			endNum = Math.ceil(replyCnt/10.0);
+		}
+		 
+		 if (endNum * 10 < replyCnt) {
+			next = true;
+		}
+		 
+		 var str = "<ul class='pagination pull-right'>";
+		 
+		 if (prev) {
+			str += "<li class = 'page-item'><a class='page-link' href='" + (startNum -1) + "'>Privious</a></li>";
+		}
+		 
+		 for(var i = startNum; i <= endNum; i++){
+			 var active = pageNum == i? "active" : "";
+			 
+			 str += "<li class='page-item " + active + " '><a class='page-link' href='"+i+"'>" +i+ "</a></li>";
+		 }
+		 
+		 if (next) {
+			str+= "<li class='page-item'><a class='page-link' href='" +(endNum + 1) +"'>Next</a></li>";
+		}
+		 
+		 str += "</ul></div>";
+		 
+		 console.log(str);
+		 
+		 replyPageFooter.html(str);
+	}
+	 
+	replyPageFooter.on("click", "li a", function(e) {
+		e.preventDefault();
+		console.log("page click");
+		
+		var targetPageNum = $(this).attr("href");
+		
+		console.log("targetPageNum: " + targetPageNum);
+		
+		pageNum = targetPageNum;
+		
+		showList(pageNum);
+	});
+	
+	
 });
 
 
@@ -317,4 +389,9 @@ replyService.get(22, function (data) {
 			operForm.submit();
 		});
 	});
+</script>
+
+
+<script type="text/javascript" src="/resources/js/reply.js?ver=<%System.currentTimeMillis()">
+
 </script>
