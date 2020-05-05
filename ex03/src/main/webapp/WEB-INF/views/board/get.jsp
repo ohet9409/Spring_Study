@@ -390,8 +390,5 @@ replyService.get(22, function (data) {
 		});
 	});
 </script>
+<script type="text/javascript" src="/resources/js/reply.js?ver=<%=System.currentTimeMillis() %>"></script>
 
-
-<script type="text/javascript" src="/resources/js/reply.js?ver=<%System.currentTimeMillis()">
-
-</script>
