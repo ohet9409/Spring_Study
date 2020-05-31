@@ -21,7 +21,25 @@
   
 <script type="text/javascript">
 $(document).ready(function(){
+	/* 확장자 제한 */
+	var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");	//exe, sh, zip 제한
+	var maxSize = 5242880;	//5MB
+	
+	function checkExtension(fileName, fileSize) {
+		
+		if (fileSize >= maxSize) {
+			alert("파일 사이즈 초과");
+			return false;
+		}
+		
+		if (regex.test(fileName)) {
+			alert("해당 종류의 파일은 업로드할 수 없습니다.");
+			return false;
+		}
+		return true;
+	}
 	$("#uploadBtn").on("click", function() {
+		// 데이터 추가하기 위해 선언
 		var formData = new FormData();
 		
 		var inputFile = $("input[name='uploadFile']");
@@ -31,7 +49,15 @@ $(document).ready(function(){
 		console.log(files);
 		
 		//add filedate to formdata
+		/* for (var i = 0; i < files.length; i++) {
+			formData.append("uploadFile", files[i]);
+		} */
 		for (var i = 0; i < files.length; i++) {
+			/* 파일을 체크해서 반환 */
+			if (!checkExtension(files[i].name, files[i].size)) {
+				return false;
+			}
+			/* 동적으로 파일을 담는다  key, value*/
 			formData.append("uploadFile", files[i]);
 		}
 		
@@ -41,8 +67,10 @@ $(document).ready(function(){
 			contentType: false,
 			data: formData,
 			type: 'POST',
+			dataType: 'json',
 			success: function(result) {
 				alert("Uploaded");
+				console.log("result: " + result);
 			}
 		});	//$.ajax
 	});

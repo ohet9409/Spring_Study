@@ -14,6 +14,27 @@
 		<org.slf4j-version>1.7.25</org.slf4j-version>
 	</properties>
 	<dependencies>
+	<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-databind</artifactId>
+	    <version>2.9.5</version>
+	</dependency>
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml -->
+	<dependency>
+	    <groupId>com.fasterxml.jackson.dataformat</groupId>
+	    <artifactId>jackson-dataformat-xml</artifactId>
+	    <version>2.9.5</version>
+	</dependency>
+		
+	<!-- 섬네일 이미지 생성 -->
+	<!-- https://mvnrepository.com/artifact/net.coobird/thumbnailator -->
+	<dependency>
+	    <groupId>net.coobird</groupId>
+	    <artifactId>thumbnailator</artifactId>
+	    <version>0.4.8</version>
+	</dependency>
+	
 	<!-- db 연결 관련 -->
 		<!-- sql을 변환해 ?가 어떤 값으로 처리되었는지 확인하는 기능: sql로그를 제대로 보기 위해 사용 -->
 		<!-- https://mvnrepository.com/artifact/org.bgee.log4jdbc-log4j2/log4jdbc-log4j2-jdbc4 -->
