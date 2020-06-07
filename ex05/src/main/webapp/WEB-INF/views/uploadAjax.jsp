@@ -22,7 +22,32 @@
 }
 
 .uploadResult ul li img{
-	width: 20px;
+	width: 100px;
+}
+
+.uploadResult ul li span{
+	color:white;
+}
+.bigPictureWrapper{
+	position: absolute;
+	display: none;
+	justify-content: center;
+	align-item: center;
+	top:0%;
+	width:100%;
+	height:100%;
+	background-color: gray;
+	z-index: 100%;
+	background: rgba(255,255,255,0.5);
+}
+.bigPicture{
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.bigPicture img{
+	width: 600px;
 }
 </style>
 <meta charset="UTF-8">
@@ -38,6 +63,10 @@
 	</ul>
 </div>
 <button id='uploadBtn'>Upload</button>
+<div class='bigPictureWrapper'>
+	<div class='bigPicture'>
+	</div>
+</div>
 </body>
 <script
   src="https://code.jquery.com/jquery-3.5.1.js"
@@ -45,6 +74,16 @@
   crossorigin="anonymous"></script>
   
 <script type="text/javascript">
+//원본 이미지를 보여줄 DIV 처리
+function showImage(fileCallPath) {
+	alert(fileCallPath);
+	
+	$(".bigPictureWrapper").css("display","flex").show();
+	
+	$(".bigPicture").html("<img src='/display?fileName=" + encodeURI(fileCallPath) + "'>").animate({width: '100%', height: '100%'}, 1000);
+}
+
+
 $(document).ready(function(){
 	/* 확장자 제한 */
 	var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");	//exe, sh, zip 제한
@@ -111,24 +150,61 @@ $(document).ready(function(){
 	
 	function showUploadFile(uploadResultArr) {
 		var str = "";
+		console.log("uploadResultArr: " + uploadResultArr);
 		$(uploadResultArr).each(function(i, obj) {
 			console.log("image: " + obj.image);
 			if(!obj.image){
 				console.log("durl");
-				str += "<li><img src='/resources/img/attach.png'>" + obj.fileName + "</li>";
+				var fileCallPath = encodeURIComponent(obj.uploadPath+"/"+obj.uuid + "_" + obj.fileName);
+				//str += "<li><img src='/resources/img/attach.png'>" + obj.fileName + "</li>";
+				str += "<li><div><a href='/download?fileName="+fileCallPath+"'>"+ "<img src='/resources/img/attach.png'>" + obj.fileName + "</a>"+
+						"<span data-file=\'"+fileCallPath+"\' data-type='file'>x</span><div></li>";
+				
 			}else{
 				//str += "<li>" + obj.fileName + "</li>";
 				
 				var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
 				
-				str += "<li><img src='/display?fileName=" + fileCallPath + "'><li>";
+				var originPath = obj.uploadPath+ "\\" + obj.uuid + "_" + obj.fileName;
+				
+				originPath = originPath.replace(new RegExp(/\\/g), "/");
+				
+				//str += "<li><img src='/display?fileName=" + fileCallPath + "'><li>";
+				str += "<li><a href=\"javascript:showImage(\'"+originPath+"\')\"><img src='/display?fileName=" + fileCallPath + "'></a>"+
+						"<span data-file=\'"+fileCallPath+"\' data-type='image'>x</span><li>";
 			
 			}
 			console.log("i: " + i);
 			console.log("obj: " + obj);
+			console.log("fileCallPath: " + fileCallPath);
+			console.log("originPath: " + originPath);
 		});
 		uploadResult.append(str);
 	}
+	$(".bigPictureWrapper").on("click", function(e) {
+		$(".bigPicture").animate({width: '0%', height: '0%'}, 1000);
+		setTimeout(() => {
+			$(this).hide();
+		}, 1000);
+	});
+	
+	$(".uploadResult").on("click", "span", function(e) {
+		
+		var targetFile = $(this).data("file");
+		var type = $(this).data("type");
+		console.log(targetFile);
+		
+		$.ajax({
+			url: '/deleteFile',
+			data: {fileName: targetFile, type: type},
+			dataType: 'text',
+			type: 'POST',
+			success: function(result) {
+				alert(result);
+			}
+		});	//$.ajax
+	});
+	
 });
 </script>
 
