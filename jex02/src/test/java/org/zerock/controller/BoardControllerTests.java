@@ -36,7 +36,7 @@ public class BoardControllerTests {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
 	}
 	
-	//@Test
+	@Test
 	public void testList() throws Exception{
 		// get 방식의 호출
 		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/board/list")).andReturn().getModelAndView().getModelMap());
@@ -78,7 +78,7 @@ public class BoardControllerTests {
 		log.info(resultPage);
 	}
 	
-	@Test
+	//@Test
 	public void testRemove() throws Exception{
 		//삭제전 데이터베이스에 게시물 번호 확인할 것
 		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/board/remove")
